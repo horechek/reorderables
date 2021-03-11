@@ -59,6 +59,7 @@ class ReorderableWrap extends StatefulWidget {
     this.reorderAnimationDuration = const Duration(milliseconds: 200),
     this.scrollAnimationDuration = const Duration(milliseconds: 200),
     this.ignorePrimaryScrollController = false,
+    final ScrollPhysics? this.physics,
     Key? key,
   }) :
 //        assert(
@@ -237,6 +238,7 @@ class ReorderableWrap extends StatefulWidget {
   final Duration reorderAnimationDuration;
   final Duration scrollAnimationDuration;
   final bool ignorePrimaryScrollController;
+  final ScrollPhysics? physics;
 
   @override
   _ReorderableWrapState createState() => _ReorderableWrapState();
@@ -290,6 +292,7 @@ class _ReorderableWrapState extends State<ReorderableWrap> {
           controller: widget.controller,
           reorderAnimationDuration: widget.reorderAnimationDuration,
           scrollAnimationDuration: widget.scrollAnimationDuration,
+          physics: widget.physics,
         );
       },
     );
@@ -336,6 +339,7 @@ class _ReorderableWrapContent extends StatefulWidget {
     this.controller,
     this.reorderAnimationDuration = const Duration(milliseconds: 200),
     this.scrollAnimationDuration = const Duration(milliseconds: 200),
+    this.physics,
   });
 
   final List<Widget>? header;
@@ -363,6 +367,7 @@ class _ReorderableWrapContent extends StatefulWidget {
   final int? maxMainAxisCount;
   final Duration reorderAnimationDuration;
   final Duration scrollAnimationDuration;
+  final ScrollPhysics? physics;
 
   @override
   _ReorderableWrapContentState createState() => _ReorderableWrapContentState();
@@ -1215,6 +1220,7 @@ class _ReorderableWrapContentState extends State<_ReorderableWrapContent>
           context, widget.direction, wrappedChildren);
     } else {
       return SingleChildScrollView(
+        physics: widget.physics,
 //      key: _contentKey,
         scrollDirection: widget.scrollDirection,
         child: (widget.buildItemsContainer ?? defaultBuildItemsContainer)(
